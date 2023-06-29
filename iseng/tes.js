@@ -1,0 +1,11 @@
+let characters = ["Kucing", "naga", "ayam"];
+characters.push("nasi");
+console.log(characters);
+characters[1] = "babi";
+console.log(characters);
+var ab = "masr";
+console.log(ab);
+ab = "sasi";
+console.log(ab);
+let j = ["kucing", 2, true];
+console.log(j);

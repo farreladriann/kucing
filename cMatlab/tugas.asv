@@ -1,0 +1,30 @@
+A = [4 0;
+   3 -5;];
+
+[U, S, V] = svd(A)
+
+SignChanger = [1 0; 0 -1;];
+U = U * SignChanger;
+V = V * SignChanger;
+% y = zeros(1,
+HASIL = V'*[1; 1;]
+JariKuadrat = HASIL(2,1) * HASIL(2,1);
+x = -HASIL(2,1) : 0.01 : HASIL(2,1)
+[mx, nx] = size(x)
+y1 = zeros(1, nx)
+y1 = zeros(1, nx)
+for i = 1:nx
+    y1(1, i) = sqrt(JariKuadrat - x(1, i)*x(1,i))
+    y2
+end
+y = [y1 y2]
+% HASIL = S*HASIL
+% HASIL = U*HASIL
+% HASIL(1,1)
+% HASIL(2,1)
+% quiver(x(, 0, y1, HASIL(2,1))
+plot(x, y1, x, y1)
+% grid on
+axis equal
+xline(0)
+yline(0)
