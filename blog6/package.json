@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start":"nodemon -e js,ejs,html -w . -w public -w views app.js"
+    "start": "nodemon -r './.module' ./app.js"
   },
   "author": "Progate",
   "license": "ISC",
