@@ -3,6 +3,6 @@ using namespace std;
 
 int main()
 {
-    cout << "NASI MAAN" << endl;
+    cout << "ASI MAAN" << endl;
     return 0;
 }
