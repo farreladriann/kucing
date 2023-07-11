@@ -9,7 +9,7 @@ class Emitter extends EventEmitter {}
 //initialize object
 const myEmitter = new Emitter();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3700;
 
 const server = http.createServer((req, res) => {
     console.log(req.url, req.method);
@@ -60,7 +60,8 @@ const server = http.createServer((req, res) => {
         switch (path.parse(filePath).base) {
             case 'old-page.html':
                 //serve 301 response
-                res.writeHead(301, { 'Location' : '/404.html' });//301 itu ngebalikin ke head web
+                res.writeHead(301, { 'Location' : '/new-page.html' });//301 itu ngebalikin ke head web
+                console.log('kucing');
                 res.end();
                 break;
             case 'www-page.html':
