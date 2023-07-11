@@ -25,5 +25,6 @@ console.log(path.parse(__filename).name);
 console.log(mathalt);
 console.log(divide);
 console.log(multiply);
+console.log(mathalt.add(1, 2));
 
 console.log(multiply(8, 9));
