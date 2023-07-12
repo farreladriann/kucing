@@ -1,1 +1,2 @@
-20230711	20:25:43	d84bdb0f-9309-47f9-88c3-42278f60d39e	TypeError : filePath.incudes is not a function
+20230712	22:02:58	2384089d-405f-4926-bb56-26d37ae1076f	Error : Not allowed by CORS
+20230712	22:14:04	e2e784ec-7899-4194-9b83-23fa672f7686	TypeError : res.accepts is not a function

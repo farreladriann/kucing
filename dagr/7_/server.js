@@ -1,10 +1,43 @@
 const express = require('express');
 const app = express();
 const path = require("path");
+const cors = require('cors'); 
+const { logger } = require('./middleware/logEvents');
+const errorHandler = require('./middleware/errorHandler');
 const PORT = process.env.PORT || 3000;
+
+// custom middleware logger
+app.use(logger);
+
+// Cross Origin Resource Sharing
+const whitelist = ['https://your-site.com', 'http://127.0.0.1:5500', 'http://localhost:3000'];
+const corsOptions = {
+    origin: (origin_, callback) => {
+        if (whitelist.indexOf(origin_) !== -1 || !origin_) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    optionsSuccessStatus: 200
+}
+
+app.use(cors(corsOptions));
+
+// built-in middleware untuk handle urlencoded data
+// dengan kata lain, form data:
+// 'content-type: application/x-www-form-urlencoded'
+app.use(express.urlencoded({ extended: false }));
+
+// built-in middleware for json
+app.use(express.json());
+
+// serve static files
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('^/$|/index(.html)?', (req, res) => {
     console.log('^/$|/index(.html)?');
+    console.log(req.headers.origin);
     res.sendFile(path.join(__dirname, 'views', 'index.html'));//200
 });
 
@@ -44,9 +77,22 @@ app.get('/old-page(.html)?', (req, res) => {
     res.redirect(301, '/new-page.html'); //302 by deault
 });
 
-app.get('/*', (req, res) => {
-    console.log('/*');
-    res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
+app.all('*', (req, res) => {
+    console.log(req.accepts());
+    console.log('*');
+    res.status(404);
+    if (req.accepts('html')) {
+        res.sendFile(path.join(__dirname, 'views', '404.html'));
+    } else if (req.accepts('json')) {
+        //coba
+        //curl -H "Accept: application/json" http://localhost:3000/sadas
+        res.json({ error: "404 Not Found"});
+    } else {
+        res.type('txt').send("404 Not Found");
+    }
 });
+
+//custom middleware error handler
+app.use(errorHandler);
 
 app.listen(PORT, () => {console.log(`Server running on port ${PORT}`);});
