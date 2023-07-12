@@ -1,0 +1,7 @@
+Pemilihan antara kode status HTTP 301 dan 302 untuk operasi pengalihan (redirect) tergantung pada situasi dan tujuan Anda.
+
+- **301 Moved Permanently:** Kode ini menunjukkan bahwa URL sumber telah berubah secara permanen ke URL tujuan. Ini biasanya digunakan dalam situasi di mana Anda telah mengubah struktur URL situs web Anda atau telah pindah ke domain baru. Penggunaan 301 memberitahu mesin pencari bahwa halaman telah pindah secara permanen dan mereka harus memperbarui indeks mereka untuk mencerminkan perubahan ini. Ini juga membantu dalam mempertahankan "link juice" atau nilai SEO dari URL asli.
+
+- **302 Found (Previously "Moved Temporarily"):** Kode ini menunjukkan bahwa perubahan ke URL tujuan hanya sementara. Mesin pencari akan terus mengindeks URL asli dan menganggap konten di URL tujuan sebagai duplikat, yang bisa berdampak negatif pada SEO. Anda biasanya akan menggunakan 302 dalam situasi di mana Anda ingin mengarahkan pengguna ke konten baru atau berbeda secara sementara, seperti selama pemeliharaan situs atau promosi khusus.
+
+Secara umum, jika perubahan ke URL tujuan dimaksudkan untuk menjadi permanen, Anda harus menggunakan 301. Jika perubahan hanya sementara, gunakan 302.

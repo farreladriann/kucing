@@ -1,0 +1,7 @@
+20230711	20:23:59	e2ee5b38-7ee1-46d7-89bf-0e882b3da7e9	/new-pax	GET
+20230711	20:23:59	c5a529ec-5450-49e1-bf2f-b24e8b6e5dd8	/css/style.css	GET
+20230711	20:25:15	b7ccbe1c-385f-4116-be4b-68b937bcc718	/data/data.json	GET
+20230711	20:25:43	e21887a4-2b5d-4223-a4a0-fc99e31b4199	/data/data.json	GET
+20230711	20:26:06	1c7569a3-07a2-4b7d-b2ff-7abd4d70cb00	/data/data.json	GET
+20230712	11:49:37	66ff1fd0-1011-4a9e-9a24-07ab30eb8064	/data/data.json	GET
+20230712	11:49:37	9b9253a0-ff20-4a6c-9927-2916866897f4	/favicon.ico	GET
