@@ -1,0 +1,3 @@
+20230712	22:02:58	2384089d-405f-4926-bb56-26d37ae1076f	Error : Not allowed by CORS
+20230712	22:14:04	e2e784ec-7899-4194-9b83-23fa672f7686	TypeError : res.accepts is not a function
+20230713	14:12:50	687bfa3d-0b65-4ecb-bfb5-b3da618dd356	TypeError : Cannot read properties of undefined (reading 'origin')
