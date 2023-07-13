@@ -7,7 +7,11 @@ const errorHandler = require('./middleware/errorHandler');
 const PORT = process.env.PORT || 3000;
 
 // custom middleware logger
-app.use(logger);
+app.use((err, req, res, next) => {
+    // logEvents(`${req.method}\t${req.headers.origin}\t${req.url}`, 'reqLog.txt');
+    MyEmitter.emit('log', `${req.method}\t${req.headers.origin}\t${req.url}`, 'reqLog.txt')
+    next();
+});
 
 // Cross Origin Resource Sharing
 const whitelist = ['https://your-site.com', 'http://127.0.0.1:5500', 'http://localhost:3000'];

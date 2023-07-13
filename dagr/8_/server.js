@@ -35,6 +35,8 @@ app.use(express.json());
 // serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/subdir', require('./routes/subdir'));
+
 app.get('^/$|/index(.html)?', (req, res) => {
     console.log('^/$|/index(.html)?');
     console.log(req.headers.origin);
