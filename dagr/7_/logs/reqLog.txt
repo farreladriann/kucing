@@ -113,3 +113,7 @@
 20230712	22:22:42	6d4c81fe-f112-437b-b03f-9e9ff6d73df7	GET	undefined	/sadas
 20230712	22:22:58	6285a074-51b1-4503-96e6-8df458dfa461	GET	undefined	/sad
 20230712	22:23:07	827f77ab-baeb-48a8-8436-1e4de901ccb3	GET	undefined	/sadas
+20230713	13:50:45	bb3bc3d6-0eb8-44f7-8627-ee1e19709a68	GET	undefined	/
+20230713	13:50:45	a70ddd34-7350-44ca-b22f-c5de7fdefc9b	GET	undefined	/css/style.css
+20230713	14:11:09	23f5b6b6-dce8-4be2-b907-e19ffa1326a2	GET	undefined	/
+20230713	14:11:09	ca8700f3-e230-4ff4-a277-a1485a12a826	GET	undefined	/css/style.css
