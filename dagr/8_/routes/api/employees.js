@@ -35,6 +35,13 @@ router.route('/')
     })
     .delete((req, res) => {
         res.json({ "id": req.body.id });
+        data.employees = data.employees.filter(nama => nama.id !== req.body.id);
+        console.log(data.employees);
+        fs.writeFile(path.join(__dirname, '..', '..', 'data', 'employees.json'), 
+            JSON.stringify(data.employees, null, 4), 
+            (err) => {
+                if (err) throw err;
+        });
     });
 
 router.route('/:id')
