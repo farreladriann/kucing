@@ -1,3 +1,6 @@
 20230712	22:02:58	2384089d-405f-4926-bb56-26d37ae1076f	Error : Not allowed by CORS
 20230712	22:14:04	e2e784ec-7899-4194-9b83-23fa672f7686	TypeError : res.accepts is not a function
 20230713	14:12:50	687bfa3d-0b65-4ecb-bfb5-b3da618dd356	TypeError : Cannot read properties of undefined (reading 'origin')
+20230713	20:38:39	b49acd27-2f02-437c-9d09-a9dc32d55dbe	ReferenceError : eq is not defined
+20230713	21:57:48	84406d60-ce0a-4074-8150-a86c148922b2	SyntaxError : Unexpected token f in JSON at position 10
+20230713	21:57:57	3e81bef6-587c-4f98-a4aa-25a2a5aa4103	SyntaxError : Unexpected token f in JSON at position 10
