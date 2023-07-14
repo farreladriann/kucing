@@ -1,0 +1,11 @@
+📚 References:
+Bcrypt: https://www.npmjs.com/package/bcrypt
+How to Safely Store a Password: https://codahale.com/how-to-safely-st...
+MDN: HTTP Response Status Codes: https://developer.mozilla.org/en-US/d...
+
+📚 More References:
+Node.js Official site: https://nodejs.org
+NPM Official site: https://www.npmjs.com/
+Express JS Official site: https://expressjs.com/
+MDN CORS: https://developer.mozilla.org/en-US/d...
+NPM CORS: https://www.npmjs.com/package/cors
