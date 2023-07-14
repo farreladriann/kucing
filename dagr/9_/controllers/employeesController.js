@@ -1,56 +1,68 @@
-const fs = require('fs');
-const path = require('path');
-const data = {};
-data.employees = require('../model/employees.json');
+const data = {//ini objek, bukan class, class itu blueprint, objek itu yg jadinya
+    employees: require('../model/employees.json'),
+    setEmployees: function (data) { this.employees = data } //harus pake function, kalo arrow function malah ga ketambah
+};
 
 const getAllEmployees = (req, res) => {
     res.json(data.employees);
 }
 
 const createNewEmployee = (req, res) => {
-    res.json({
-        "id": req.body.id,
-        "firstname": req.body.firstname,
-        "lastname": req.body.lastname
-    });
-    // newData = {};
-    // newData['id'] = req.body.id;
-    // newData['firstname'] = req.body.firstname;
-    // newData['lastname'] = req.body.lastname;
-    // data.employees.push(newData);
-    // const jsonString = JSON.stringify(data.employees, null, 4);
-    // // console.log(jsonString);
-    // fs.writeFile(path.join(__dirname, '..', '..', 'data', 'employees.json'), jsonString, (err) => {
-    //     if (err) throw err;
-    // });
+    const newEmployee = {
+        id: data.employees?.length ? data.employees[data.employees.length - 1].id + 1 : 1,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname
+    }
+
+    if (!newEmployee.firstname || !newEmployee.lastname) {
+        return res.status(400).json({ 'message': 'First or last names are required' });
+    }
+
+    data.setEmployees([...data.employees, newEmployee]);
+    res.json(data.employees);
 }
 
 const updateEmployee = (req, res) => {
-    res.json({
-        "firstname": req.body.firstname,
-        "lastname": req.body.lastname
-    });
+    const employee = data.employees.find(emp => emp.id === parseInt(req.body.id));
+    if (!employee) {
+        return res.status(400).json({ 'message': `Employee ID ${req.body.id} not found` });
+    }
+    if (req.body.firstname) employee.firstname = req.body.firstname;
+    if (req.body.lastname) employee.lastname = req.body.lastname;
+    const filteredArray = data.employees.filter(emp => emp.id !== parseInt(req.body.id));
+    const unsortedArray = [...filteredArray,  employee];
+    const sortedArray = unsortedArray.sort((a, b) => a.id > b.id ? 1 : (a.id < b.id ? -1 : 0));
+    data.setEmployees(sortedArray);
+    res.json(data.employees);
 }
 
-const deletEmployee = (req, res) => {
-    res.json({ "id": req.body.id });
-    // data.employees = data.employees.filter(nama => nama.id !== req.body.id);
-    // console.log(data.employees);
-    // fs.writeFile(path.join(__dirname, '..', '..', 'data', 'employees.json'), 
-    //     JSON.stringify(data.employees, null, 4), 
-    //     (err) => {
-    //         if (err) throw err;
-    // });
+const deleteEmployee = (req, res) => {
+    const employee = data.employees.find(emp => emp.id === parseInt(req.body.id));
+    if (!employee) {
+        return res.status(400).json({ 'message': `Employee ID ${req.body.id} not found` });
+    }
+    const filteredArray = data.employees.filter(emp => emp.id !== parseInt(req.body.id));
+    // let incrementId = 1;
+    // for (var obj of filteredArray) {
+    //     obj.id = incrementId;
+    //     incrementId++;
+    // }
+    data.setEmployees(filteredArray);
+    res.json(data.employees);
 }
 
 const getEmployee = (req, res) => {
-    res.json({ "id":req.params.id });
+    const employee = data.employees.find(emp => emp.id === parseInt(req.params.id));
+    if (!employee) {
+        return res.status(400).json({ 'message': `Employee ID ${req.body.id} not found` });
+    }
+    res.json(employee);
 }
 
 module.exports = {
     getAllEmployees,
     createNewEmployee,
     updateEmployee,
-    deletEmployee,
+    deleteEmployee,
     getEmployee
 }

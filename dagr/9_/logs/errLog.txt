@@ -7,3 +7,4 @@
 20230714	00:23:29	9a239f03-d53c-44c8-8373-34dfc7563bee	TypeError : The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received an instance of Array
 20230714	00:23:52	ed4ffd6f-167e-4b4e-84d1-c7f59ecd5f0f	TypeError : The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received an instance of Array
 20230714	00:24:54	6582532d-38eb-40ee-92f3-f1bd9a86616a	TypeError : The "data" argument must be of type string or an instance of Buffer, TypedArray, or DataView. Received an instance of Array
+20230714	15:17:10	12de1984-102f-4af7-b0a9-4621b21fd161	SyntaxError : Unexpected token f in JSON at position 10
