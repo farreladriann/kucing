@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require("path");
 const cors = require('cors');
+const corsOptions = require('./config/corsOptions');
 const logger = require('./middleware/logger');
 const errorHandler = require('./middleware/errorHandler');
 const PORT = process.env.PORT || 3000;
@@ -10,18 +11,6 @@ const PORT = process.env.PORT || 3000;
 app.use(logger);
 
 // Cross Origin Resource Sharing
-const whitelist = ['https://yoursite.com', 'http://127.0.0.1:5500', 'http://localhost:3000'];
-const corsOptions = {
-    origin: (origin_, callback) => {
-        if (whitelist.indexOf(origin_) !== -1 || !origin_) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    optionsSuccessStatus: 200
-}
-
 app.use(cors(corsOptions));
 
 // built-in middleware untuk handle urlencoded data
@@ -34,11 +23,9 @@ app.use(express.json());
 
 // serve static files
 app.use(express.static(path.join(__dirname, 'public'))); // '/' by default
-app.use('/subdir', express.static(path.join(__dirname, 'public'))); // using public for subdir
 
 // routes
 app.use('/', require('./routes/root'));
-app.use('/subdir', require('./routes/subdir'));
 app.use('/employees', require('./routes/api/employees'));
 
 app.all('*', (req, res) => {
