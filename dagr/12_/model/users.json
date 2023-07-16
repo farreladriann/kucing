@@ -1,0 +1,19 @@
+[
+    {
+        "username": "Farrel",
+        "roles": {
+            "User": 2001,
+            "Editor": 1984,
+            "Admin": 5150
+        },
+        "password": "$2b$10$kuYMt/FR93iXsRrON0Dbg.fC4akM/hZ9W.CXRIUfBhSC3/B3al5zC"
+    },
+    {
+        "username": "Farhah",
+        "roles": {
+            "User": 2001,
+            "Editor": 1984
+        },
+        "password": "$2b$10$PQkvRR25QPN34SV4xMEzO.MeC2xAipQQxurjYEEcxIY8hvwhegQYa"
+    }
+]
