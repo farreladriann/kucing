@@ -28,11 +28,30 @@
         "password": "$2b$10$18UYFytJfYL1.ZUNJfcpn.2vXL0wUvnxTsGzQ/Dgjt/he696Y0Qae"
     },
     {
-        "username": "rianNegaara",
-        "password": "$2b$10$LE/nsHF4gRttBZ7H90k7seBRFMQzyJ7PmAA1w0p8tA0t5Lzwl9UHO"
-    },
-    {
         "username": "riandNegara",
         "password": "$2b$10$CjYA/4F2DJWnZx.lM12f2OHrtYrGz1jTZRBow6TBq2NnwyIoZH3vS"
+    },
+    {
+        "username": "rianfddNegara",
+        "password": "$2b$10$RtFU2qJNz0aH3FSpHJzJjOBiEJS1iKbeeLK9ZNW.melBy596TSp9S"
+    },
+    {
+        "username": "rianNegaara",
+        "password": "$2b$10$LE/nsHF4gRttBZ7H90k7seBRFMQzyJ7PmAA1w0p8tA0t5Lzwl9UHO",
+        "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJpYW5OZWdhYXJhIiwiaWF0IjoxNjg5NDEyNzU1LCJleHAiOjE2ODk0OTkxNTV9.yX-t4nmrPMpB6ZR8PuZAHS3e9qUBcDgmLTQgQFIOYAo"
+    },
+    {
+        "username": "Rian",
+        "password": "$2b$10$LgX7oHzuZnm/wv4l3lj0i.2Jd05.CmTaASL7jPLpbb3ZCVVxbAm3K"
+    },
+    {
+        "username": "Farhah",
+        "password": "$2b$10$aFaESbYQzRvLWSdvlPoKCeuVhj0wVfrvCyWaPNWazuHPfp2GlaQJS",
+        "refreshToken": ""
+    },
+    {
+        "username": "Farrel",
+        "password": "$2b$10$r.iqp8InGT9QtPNzveS/wuKP7iYS8QNmlU3YwlKnEQyZuAIMx5L3u",
+        "refreshToken": ""
     }
 ]
