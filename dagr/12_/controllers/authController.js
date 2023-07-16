@@ -28,7 +28,7 @@ const handleLogin = async (req, res) => {
                 }
             },
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: '30s' }
+            { expiresIn: '120s' }
         );
         // Saving refreshToken with current user
         const refreshToken = jwt.sign(
@@ -36,7 +36,6 @@ const handleLogin = async (req, res) => {
             process.env.REFRESH_TOKEN_SECRET,
             { expiresIn: '1d' }
         );
-        console.log(accessToken);
         const otherUsers = usersDB.users.filter(person => person.username !== foundUser.username);
         const currentUser = {...foundUser, refreshToken};
         usersDB.setUsers([...otherUsers, currentUser]);
@@ -44,7 +43,8 @@ const handleLogin = async (req, res) => {
             path.join(__dirname, '..', 'model', 'users.json'),
             JSON.stringify(usersDB.users, null, 4)
         );
-        res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 60 * 60 * 1000 });
+        // res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 60 * 60 * 1000 });
+        res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 60 * 60 * 1000 });
         res.json({ accessToken });
     } else {
         res.status(401).json({ 'message': 'password doesn\'t match with username' });;
