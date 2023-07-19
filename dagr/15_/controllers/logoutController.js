@@ -16,6 +16,7 @@ const handeLogout = async (req, res) => {
     await foundUser.save();
 
     res.clearCookie('jwt', { httpOnly: true, sameSite: 'None' });
+    res.sendStatus(204);
 }
 
 module.exports = { handeLogout };
