@@ -2,50 +2,55 @@ const Employee = require("../model/Employee");
 const mongoose = require('mongoose');
 
 const getAllEmployees = async (req, res) => {
-    res.json(await Employee.find({}));
+    const employees = await Employee.find();
+    if (!employees) return res.sendStatus(204).json({ 'message': 'No employees found' });
+    res.json(employees);
 };
 
 const createNewEmployee = async (req, res) => {
-    if (!req.body.firstname || !req.body.lastname)
+    if (!req?.body?.firstname || !req?.body?.lastname)
         return res.status(400).json({ message: "First or last names are required" });
-
-    await Employee.create({
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-    });
-
-    res.json(await Employee.find({}));
+    try {
+        const result = await Employee.create({
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+        });
+        res.status(201).json(result);
+    } catch (err) {
+        console.error(err);
+    }
 };
 
 const updateEmployee = async (req, res) => {
-    if (!req.body || !req.body.id || !mongoose.Types.ObjectId.isValid(req.body.id))
+    if (!req?.body?.id || !mongoose.Types.ObjectId.isValid(req.body.id))
         return res.status(400).json({ 'message': 'Invalid ID provided' });
-    const foundEmployee = await Employee.findOne({ _id: req.body.id }).exec();
-    if (!foundEmployee)
-        return res.status(400).json({ 'message': `Employee ID ${req.body.id} not found` });
-    if (req.body.firstname) foundEmployee.firstname = req.body.firstname;
-    if (req.body.lastname) foundEmployee.lastname = req.body.lastname;
-    await foundEmployee.save();
-    res.json(await Employee.find({}));
+    const employee = await Employee.findOne({ _id: req.body.id }).exec();
+    if (!employee)
+        return res.status(204).json({ 'message': `No employee matches ID ${req.body.id}.` });
+    if (req.body?.firstname) employee.firstname = req.body.firstname;
+    if (req.body?.lastname) employee.lastname = req.body.lastname;
+    const result = await employee.save();
+    res.json(result);
 };
 
 const deleteEmployee = async (req, res) => {
-    if (!req.body || !req.body.id || !mongoose.Types.ObjectId.isValid(req.body.id))
+    if (!req?.body?.id || !mongoose.Types.ObjectId.isValid(req.body.id))
         return res.status(400).json({ 'message': 'Invalid ID provided' });
-    if (!(await Employee.findOne({ _id: req.body.id }).exec()))
+    const employee = await Employee.findOne({ _id: req.body.id }).exec()
+    if (!employee) 
         return res.status(400).json({ 'message': `Employee ID ${req.body.id} not found` });
-    await Employee.deleteOne({ _id: req.body.id });
-    res.json(await Employee.find({}));
+    const result = await Employee.deleteOne({ _id: req.body.id });
+    res.json(result);
 };
 
 const getEmployee = async (req, res) => {
-    if (!req.params || !req.params.id || !mongoose.Types.ObjectId.isValid(req.params.id))
+    if (!req?.params?.id || !mongoose.Types.ObjectId.isValid(req.params.id))
         return res.status(400).json({ 'message': 'Invalid ID provided' });
-    foundEmployee = await Employee.findOne({ _id: req.params.id }).exec();
-    if (!foundEmployee) {
+    const employee = await Employee.findOne({ _id: req.params.id }).exec();
+    if (!employee) {
         return res.status(400).json({ message: `Employee ID ${req.body.id} not found` });
     }
-    res.json(foundEmployee);
+    res.json(employee);
 };
 
 module.exports = {

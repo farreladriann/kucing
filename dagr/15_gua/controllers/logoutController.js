@@ -5,7 +5,7 @@ const handeLogout = async (req, res) => {
     if (!cookies?.jwt) return res.sendStatus(204);
     const refreshToken = cookies.jwt;
 
-    const foundUser = await User.findOne({ refreshToken }).exec();
+    const foundUser = await User.findOne({ refreshToken: refreshToken }).exec();
     if (!foundUser) {
         res.clearCookie('jwt', { httpOnly: true, sameSite: 'None' });
         return res.sendStatus(204);
@@ -13,8 +13,7 @@ const handeLogout = async (req, res) => {
 
     // Delete refresh token in the database
     foundUser.refreshToken = '';
-    const result = await foundUser.save();
-    console.log(result);
+    await foundUser.save();
 
     res.clearCookie('jwt', { httpOnly: true, sameSite: 'None' });
     res.sendStatus(204);

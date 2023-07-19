@@ -5,7 +5,6 @@ const jwt = require('jsonwebtoken');
 const handleLogin = async (req, res) => {
     const { user, pwd } = req.body;
     if (!user || !pwd) return res.status(400).json({ 'message': 'Username and password are required'});
-
     const foundUser = await User.findOne({ username: user }).exec();
     if (!foundUser)
         return res.status(401).json({ 'message': 'There is no username' });
@@ -31,8 +30,8 @@ const handleLogin = async (req, res) => {
             { expiresIn: '1d' }
         );
         foundUser.refreshToken = refreshToken;
-        const result = await foundUser.save();
-        console.log(result);
+        await foundUser.save();
+        console.log(accessToken);
         // res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 60 * 60 * 1000 });
         res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 60 * 60 * 1000 });
         res.json({ accessToken });
