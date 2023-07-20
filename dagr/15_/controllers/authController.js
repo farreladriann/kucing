@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const handleLogin = async (req, res) => {
+    const cookies = req.cookies;
     const { user, pwd } = req.body;
     if (!user || !pwd) return res.status(400).json({ 'message': 'Username and password are required'});
 
@@ -22,19 +23,29 @@ const handleLogin = async (req, res) => {
                 }
             },
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: '20m' }
+            { expiresIn: '10s' }
         );
         // Saving refreshToken with current user
-        const refreshToken = jwt.sign(
+        const newRefreshToken = jwt.sign(
             { "username": foundUser.username },
             process.env.REFRESH_TOKEN_SECRET,
-            { expiresIn: '1d' }
+            { expiresIn: '1d' } 
         );
-        foundUser.refreshToken = refreshToken;
+        
+        const newRefreshTokenArray =
+            !cookies?.jwt ?// kalo gada jwt
+                foundUser.refreshToken // pake yang lama
+                : foundUser.refreshToken.filter(rt => rt !== cookies.jwt);
+
+        if (cookies?.jwt)
+            res.clearCookie('jwt', { httpOnly: true, sameSite: 'None' });
+
+        foundUser.refreshToken = [...newRefreshTokenArray, newRefreshToken];
         const result = await foundUser.save();
         console.log(result);
-        // res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 60 * 60 * 1000 });
-        res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 60 * 60 * 1000 });
+        console.log(roles);
+        // res.cookie('jwt', ref reshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 60 * 60 * 1000 });
+        res.cookie('jwt', newRefreshToken, { httpOnly: true, maxAge: 60 * 60 * 1000 });
         res.json({ accessToken });
     } else {
         res.status(401).json({ 'message': 'password doesn\'t match with username' });;

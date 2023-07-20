@@ -12,7 +12,7 @@ const handeLogout = async (req, res) => {
     }
 
     // Delete refresh token in the database
-    foundUser.refreshToken = '';
+    foundUser.refreshToken = foundUser.refreshToken.filter(RT => RT !== refreshToken);
     const result = await foundUser.save();
     console.log(result);
 
