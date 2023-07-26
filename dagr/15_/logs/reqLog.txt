@@ -1115,3 +1115,17 @@
 20230720	09:42:14	0f33c34e-3965-41d2-aff5-b548c1a8e054	GET	undefined	/send_url.js
 20230720	09:42:14	18876c49-f596-45e1-9462-493ba0577b5b	GET	undefined	/css/style.css
 20230720	09:42:14	319bd631-322a-4503-8ec6-1419ab2ed61e	GET	undefined	/favicon.ico
+20230722	19:47:43	d7de723a-214f-4520-a3fc-2fa3452d4e68	POST	undefined	/auth
+20230722	19:51:36	0ef6bb11-54dc-47ea-8a2a-307f6c2325f0	POST	undefined	/auth
+20230722	19:51:48	3d193338-e883-4e3f-ae94-26bb2304305a	GET	undefined	/employees
+20230722	19:51:58	6a454b17-6f4b-48e7-9746-b1aca5a4b6aa	GET	undefined	/employees
+20230722	19:52:06	c798cf62-5065-4890-bd5e-2c1b92fd34e5	POST	undefined	/auth
+20230722	19:52:11	a3331e03-70c9-4f41-9a05-742a5b53f7a7	GET	undefined	/employees
+20230722	19:52:41	e011347f-ecb7-40e5-957d-ba9d0fb736f2	POST	undefined	/auth
+20230722	19:52:46	6ad59361-d521-40a2-920d-9279524314cd	GET	undefined	/employees
+20230722	19:53:45	a9e06980-c934-48f8-be84-2e180533c70f	POST	undefined	/auth
+20230722	19:53:51	228e8013-4f0d-419e-b5e4-0d4b52b7a7fe	GET	undefined	/employees
+20230722	20:00:43	b4f7ac28-21df-41e0-90ea-a68ec95df151	POST	undefined	/auth
+20230722	20:00:51	7c3b4a86-7d34-4166-9a17-1502d48307a3	GET	undefined	/employees
+20230722	20:18:19	676c5fd9-a545-4474-abf1-f066098ff6e7	POST	undefined	/auth
+20230722	20:18:24	ea2a2148-9d4b-4292-af5c-6ea9fc87a1cb	GET	undefined	/employees
