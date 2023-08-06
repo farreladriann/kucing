@@ -62,3 +62,8 @@
 
 // const express = require('express');
 // console.log(typeof express);
+const x = ""
+if (x)
+    console.log('kontol');
+else
+    console.log('ga kontol');
