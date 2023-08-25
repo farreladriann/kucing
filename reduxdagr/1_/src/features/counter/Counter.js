@@ -19,6 +19,7 @@ const Counter = () => {
         setIncrementAmount(0);
         dispatch(reset());
     }
+    console.log(count);
 
     return (
         <section>
