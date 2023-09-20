@@ -25,11 +25,3 @@ def f(xo):
 def xr(xl, xu):
     global y
     return xu - f(xu)*(xl - xu) / (f(xl) - f(xu))
-
-
-
-# n = 100
-# X = matrix(RR, n, 6)
-
-# X[0] = [1, x_low, x_upper, (x_low + x_upper) / 2, f.subs({x: (x_low + x_upper) / 2}), 100]
-
