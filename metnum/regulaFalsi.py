@@ -1,4 +1,4 @@
-# Newton Raphson Method to find root of equations
+# Regula Falsi Method to find root of equations
 from sage.all import *
 
 x = var('x')
@@ -15,44 +15,21 @@ y = x**3 - 5*x**2 + 7*x - 3 # x= 3, x=1, x=1
 # y = tan(x) # banyak perpotongan dan banyak diskontinu, x=0, x=pi, x=2pi, dst
 # y = 9.81 * 68.1 / x * (1 - exp(-(x / 68.1) * 10)) - 40 # dari buku
 
-Dy = diff(y, x)
-
 def epsilon_a(xr_old, xr_new):
     return abs((xr_new - xr_old) / xr_new) * 100
 
 def f(xo):
     global y
-    return y.subs({ x: xo })
+    return y.subs({ x: xo})
 
-def Df(xo):
-    global Dy
-    return Dy.subs({ x: xo })
+def xr(xl, xu):
+    global y
+    return xu - f(xu)*(xl - xu) / (f(xl) - f(xu))
 
-def next_xi(xi):
-    return xi - f(xi) / Df(xi)
 
-# initial guess
-x0 = 4
 
-# [nomor, xi, f(xi), Df(xi), epsilon_a] 5
-n = 100
-X = matrix(RR, n+1, 5)
+# n = 100
+# X = matrix(RR, n, 6)
 
-# u/ epsilon a
-X[0] = [0, x0, f(x0), Df(x0), 100]
+# X[0] = [1, x_low, x_upper, (x_low + x_upper) / 2, f.subs({x: (x_low + x_upper) / 2}), 100]
 
-for i in range(0, n):
-    xi = X[i, 1]
-    
-    if Df(xi) == 0:
-        print('Coba gunakan tebakan lain, karena ada yg turunannya 0')
-        exit()
-        
-    xi_plus1 = next_xi(xi)
-    
-    X[i+1] = [i+1, xi_plus1, f(xi_plus1), Df(xi_plus1), epsilon_a(xi, xi_plus1)]
-    
-    if X[i+1, 2] == RR(0):
-        break
-
-print(X[0: i+2, 0:])
