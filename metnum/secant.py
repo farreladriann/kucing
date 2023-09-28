@@ -1,4 +1,4 @@
-# Bisection Method to find root of equations
+# Newton Raphson Method to find root of equations
 from sage.all import *
 
 x = var('x')
@@ -15,14 +15,13 @@ x = var('x')
 # y = sin(x) # banyak perpotongan sumbu x, x=0, x=pi, x=2pi, dst
 # y = tan(x) # banyak perpotongan dan banyak diskontinu, x=0, x=pi, x=2pi, dst
 # y = 9.81 * 68.1 / x * (1 - exp(-(x / 68.1) * 10)) - 40 # dari buku
-# y = x**10 - 1
-y = x**2 - x -1
+# y = x**7 - 5
+# y = exp(-x) - x
+y = x**4 - 6*x**3 + 12*x**2 - 10*x + 3
 
+x0 = float(input("masukkan x0 : "))
+x1 = float(input("masukkan x1 : "))
 
-xl = float(input("Masukkan xl : "))
-xu = float(input("Masukkan xu : "))
-
-# inisialisasi xl dan xu
 def epsilon_a(xr_old, xr_new):
     if xr_new != 0:
         return abs((xr_new - xr_old) / xr_new) * 100
@@ -32,34 +31,35 @@ def f(xo):
     global y
     return y.subs({ x: xo })
 
-def xr(xl, xu):
-    return ((xl + xu) / 2)
+def next_xi(xi, xi_before):
+    return xi - f(xi) * (xi - xi_before) / (f(xi) - f(xi_before))
 
-if f(xl) * f(xu) > 0:
-    print('buat nilai tebakan lain')
-    exit()
+# initial guess
 
-n = 100
+# [nomor, xi, f(xi), Df(xi), epsilon_a] 5
+n = 1000
 X = matrix(RR, n, 6)
 
-# nomor, xl, xu, xr, f(xr), epsilon a
-X[0] = [1, xl, xu, xr(xl, xu), f(xr(xl, xu)), 100]
+# u/ epsilon a
+X[0] = [1, x0, x1, f(x0), f(x1), epsilon_a(x0, x1)]
+
+if f(x0) == f(x1):
+    print('pilih tebakan lain')
+    exit()
 
 for i in range(1, n):
-    xr_lama = X[i-1, 3]
-    flxfmid = f(xl) * f(xr_lama)
+    xi_min1 = X[i-1, 1]
+    xi = X[i-1, 2]
+    
+    if f(xi) == f(xi_min1):
+        print('pilih tebakan lain')
+        print(xi, xi_min1)
+        print(X[:i+6])
+        exit()
 
-    if flxfmid < 0:
-        xu = xr_lama
-        xr_baru = xr(xl, xu)
-        X[i] = [i+1, xl, xu, xr_baru, f(xr_baru), epsilon_a(xr_lama, xr_baru)]
-    elif flxfmid == 0:
-        xr_baru = xr(xl, xu)
-        X[i] = [i+1, xl, xu, xr_baru, f(xr_baru), epsilon_a(xr_lama, xr_baru)]
+    xi_plus1 = next_xi(xi, xi_min1)
+    X[i] = [i+1, xi, xi_plus1, X[i-1, 4], f(xi_plus1), epsilon_a(xi, xi_plus1)]
+    if X[i, 5] == 0:
         break
-    else:
-        xl = xr_lama
-        xr_baru = xr(xl, xu)
-        X[i] = [i+1, xl, xu, xr_baru, f(xr_baru), epsilon_a(xr_lama, xr_baru)]
 
 print(X[:i+1])

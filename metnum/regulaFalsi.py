@@ -15,10 +15,10 @@ x = var('x')
 # y = sin(x) # banyak perpotongan sumbu x, x=0, x=pi, x=2pi, dst
 # y = tan(x) # banyak perpotongan dan banyak diskontinu, x=0, x=pi, x=2pi, dst
 # y = 9.81 * 68.1 / x * (1 - exp(-(x / 68.1) * 10)) - 40 # dari buku
-# y = x**10 - 1
+y = x**7 - 1000
 
-xl = 0.5
-xu = 4
+xl = float(input("Masukkan xl : "))
+xu = float(input("Masukkan xu : "))
 
 def epsilon_a(xr_old, xr_new):
     if xr_new != 0:

@@ -2,9 +2,9 @@ from sage.all import *
 
 x = var('x')
 
-y = 3/(x-2)
+y = exp(-x)
 Dy = diff(y, x)
-x0 = 1.999
+x0 = float(input("Masukkan x0: "))
 
 def epsilon_a(xr_old, xr_new):
     if xr_new != 0:
