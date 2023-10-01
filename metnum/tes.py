@@ -1,25 +1,53 @@
-from sage.all import *
-# n = 20
-# R = PolynomialRing(RR, 'x', n+1) # n0 ga dipake mulai dari n1
-# x = R.gens()[1:]
-# print(x[0])
+import numpy as np
 
-# x, y = var('x y')
-# p = x * y
-# h = p.subs({ x: 2})
-# print(h.subs({ x: 3 }))
-titikX = []
-titikY = []
-n = int(input())
-for i in range(n):
-    inputXY = input().split()
-    titikX.append(RR(float(inputXY[0])))
-    titikY.append(RR(float(inputXY[1])))
-m = int(input())
-b = vector(RR, m+1)
+# Matriks awal
+A = np.array([[2, 1, 1],
+            [4, -6, 0],
+            [1, -1, 3]], dtype=float)
 
-b[0] = sum(titikY)
-for k in range(1, m+1):
-        for r in range(n):
-            b[k] += (titikX[r]**k * titikY[r])
-print(b)
+# Vektor hasil
+b = np.array([3, 9, 4], dtype=float)
+
+n = len(b)
+
+for k in range(n):
+    print(f"Step {k+1}:")
+    
+    # Cetak matriks A pada tahap ini
+    print("Matrix A:")
+    print(A)
+    
+    # Hitung skala untuk setiap baris
+    scales = np.max(np.abs(A), axis=1)
+    
+    # Temukan baris dengan skala paling besar
+    pivot_row = np.argmax(scales[k:]) + k
+    
+    # Lakukan pertukaran baris
+    A[[k, pivot_row]] = A[[pivot_row, k]]
+    b[k], b[pivot_row] = b[pivot_row], b[k]
+    
+    # Cetak matriks A setelah pertukaran
+    print("Matrix A setelah pertukaran:")
+    print(A)
+    
+    # Tahap eliminasi Gauss
+    for i in range(k+1, n):
+        factor = A[i, k] / A[k, k]
+        A[i, k:] -= factor * A[k, k:]
+        b[i] -= factor * b[k]
+    
+    # Cetak matriks A setelah eliminasi Gauss
+    print("Matrix A setelah eliminasi Gauss:")
+    print(A)
+    
+    # Cetak vektor b saat ini
+    print("Vektor b:")
+    print(b)
+
+# Proses pengembalian mundur (back-substitution)
+x = np.zeros(n)
+for i in range(n - 1, -1, -1):
+    x[i] = (b[i] - np.dot(A[i, i+1:], x[i+1:])) / A[i, i]
+
+print("Solusi x:", x)
