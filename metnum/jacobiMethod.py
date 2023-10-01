@@ -5,7 +5,8 @@ A = matrix(RR, n, n+1)
 rumus_xi = []
 jumlahPerulangan = 100
 X = matrix(RR, jumlahPerulangan, n)
-R = PolynomialRing(RR, 'x', n+1) # n0 ga dipake mulai dari n1
+R = PolynomialRing(RR, 'x', n+1) 
+# x0 ga dipake mulai dari n1
 x = R.gens()[1:] #tuple
 
 # input, index dimulai dari 1 dan berakhir di n
@@ -32,7 +33,6 @@ for i in range(jumlahPerulangan-1):
         for k in (range(n)):
             if k != j:
                 x_iplus1 = x_iplus1.subs({ x[k]: X[i, k] })
-            print(x_iplus1)
         X[i+1, j] = x_iplus1
 
 print(rumus_xi)
