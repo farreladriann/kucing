@@ -7,7 +7,7 @@ x = var('x')
 # y = x**3 - 5*x**2 + 7*x - 3 # x= 3, x=1, x=1
 # y = x**4 - 8*x**3 + 20*x**2 - 16*x + 3 # x = 0.2679491924311, x=1, x=3, x=3.7320508075689
 # y = x**2 # satu titik potong dan f >= 0
-# y = 3*x**5 - 5*x**3 + 2 # ada dua titik stasioner dan satu titik belok, x = -1.384811563344, x = 1
+# y = 3*x**5 - 5*x**3 # ada dua titik stasioner dan satu titik belok, x = -1.384811563344, x = 1
 # y = x**2 + 1 # tidak memotong sumbu x dan selalu positif
 # y = 1 / x + 1 # satu perpotongan sumbu x dan ada titik yang diskontinu, x = -1
 # y = 1 / x # tidak memotong sumbu x dan diskontinu di satu titik
@@ -21,11 +21,12 @@ x = var('x')
 # y = x**3
 # y = x**4 - 6*x**3 + 12*x**2 - 10*x + 3
 # y = x**3 - 5*x**2 + 7*x - 3
-y = 300*cos(0.34*pi)*x - 0.5*9.81*x**2 - 10
+# y = 300*cos(0.34*pi)*x - 0.5*9.81*x**2 - 10
+# y = x * exp(-x**2)
+y = x**4-24*x**2+11
 
 Dy = diff(y, x)
 # initial guess
-x0 = float(input("Masukkan x0: "))
 # x0 = 2.4*pi
 
 def epsilon_a(xr_old, xr_new):
@@ -35,11 +36,11 @@ def epsilon_a(xr_old, xr_new):
 
 def f(xo):
     global y
-    return y.subs(x, xo).evalf()
+    return y.subs({ x: xo })
 
 def Df(xo):
     global Dy
-    return Dy.subs(x, xo).evalf()
+    return Dy.subs({x: xo})
 
 def next_xi(xi):
     return xi - f(xi) / Df(xi)
@@ -53,7 +54,7 @@ def modified_next_xi(xi):
 # [nomor, xi, f(xi), Df(xi), epsilon_a] 5
 n = 100
 X = matrix(RR, n+1, 5)
-
+x0 = float(input("Masukkan x0: "))
 # u/ epsilon a
 X[0] = [0, x0, f(x0), Df(x0), 100]
 

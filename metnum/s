@@ -1,0 +1,140 @@
+Function inputMatrix(n):
+    A = Initialize n x (n+1) matrix of real numbers
+    For i = 0 to n-1:
+        inputRow = Split(Input())
+        For j = 0 to n:
+            A[i, j] = ParseFloat(inputRow[j])
+    Return A
+
+Function membuat_rumus_xi(A, n):
+    R = Initialize PolynomialRing over Real Numbers with 'x' as variable, degree n+1
+    rumus_xi = Initialize Empty List
+    x = Get list of variables from R, excluding the first variable (x0)
+    For i = 0 to n-1:
+        y = A[i, n]
+        For x_val, j in zip(x, range(n)):
+            If i is not equal to j:
+                y = y - (A[i, j] * x_val)
+        rumus_xi.Append(y / A[i, i])
+    Return rumus_xi
+
+Function gauss_seidel(n, rumus_xi, jumlahPerulangan):
+    X = Initialize jumlahPerulangan x n matrix of real numbers
+    Error = Initialize jumlahPerulangan x n matrix of real numbers
+    R = Initialize PolynomialRing over Real Numbers with 'x' as variable, degree n+1
+    x = Get list of variables from R, excluding the first variable (x0)
+    list_initial = Split(Input())
+    For i = 0 to n-1:
+        X[0, i] = ParseFloat(list_initial[i])
+    For i = 0 to jumlahPerulangan-2:
+        For j = 0 to n-1:
+            x_iplus1 = rumus_xi[j]
+            For k = 0 to n-1:
+                If k < j:
+                    x_iplus1 = Substitute(x_iplus1, { x[k]: X[i+1, k] })
+                ElseIf k > j:
+                    x_iplus1 = Substitute(x_iplus1, { x[k]: X[i, k] })
+            X[i+1, j] = x_iplus1
+    Return X
+
+Function epsilon_a(xr_old, xr_new):
+    If xr_new != 0:
+        Return AbsoluteValue((xr_new - xr_old) / xr_new) * 100
+    Return 0
+
+Function f(xo):
+    Return Substitute(y, { x: xo })
+
+Function Df(xo):
+    Return Substitute(Dy, { x: xo })
+
+Function next_xi(xi):
+    Return xi - f(xi) / Df(xi)
+
+Function newton_raphson_method(n, x0, toleransi_error):
+    X = Initialize (n+1) x 5 matrix of real numbers
+    X[0] = [0, x0, f(x0), Df(x0), 100]
+    For i = 0 to n-1:
+        xi = X[i, 1]
+        If Df(xi) == 0:
+            Print('Coba gunakan tebakan lain, karena ada yg turunannya 0')
+            Exit()
+        xi_plus1 = next_xi(xi)
+        X[i+1] = [i+1, xi_plus1, f(xi_plus1), Df(xi_plus1), epsilon_a(xi, xi_plus1)]
+        If X[i+1, 4] < toleransi_error:
+            Break
+    Return X
+
+Function next_xi_secant(xi, xi_before):
+    Return xi - f(xi) * (xi - xi_before) / (f(xi) - f(xi_before))
+
+Function secant(n, x0, x1, toleransi_error):
+    X = Initialize n x 6 matrix of real numbers
+    X[0] = [1, x0, x1, f(x0), f(x1), epsilon_a(x0, x1)]
+    If f(x0) == f(x1):
+        Print('pilih tebakan lain')
+        Exit()
+    For i = 1 to n-1:
+        xi_min1 = X[i-1, 1]
+        xi = X[i-1, 2]
+        If f(xi) == f(xi_min1):
+            Print('pilih tebakan lain')
+            Print(xi, xi_min1)
+            Print(X[:i+6])
+            Exit()
+        xi_plus1 = next_xi_secant(xi, xi_min1)
+        X[i] = [i+1, xi, xi_plus1, X[i-1, 4], f(xi_plus1), epsilon_a(xi, xi_plus1)]
+        If X[i, 5] < toleransi_error:
+            Break
+    Return X
+
+Main:
+    n = ParseInt(Input("Ukuran matrix n: "))
+    jumlahPerulangan = ParseInt(Input("Maksimal iterasi: "))
+    Print("Inputkan augmented matrix di bawah ini")
+    A = inputMatrix(n)
+    rumus_xi = membuat_rumus_xi(A, n)
+    Print("Input terkaan awal untuk ln(x_1) cos(x_2) tan(x_3)")
+    X = gauss_seidel(n, rumus_xi, jumlahPerulangan)
+    toleransi_error = ParseFloat(Input("Masukkan toleransi error: "))
+    x = Variable('x')
+    y = ln(x) - X[jumlahPerulangan-1, 0]
+    Dy = Differentiate(y, x)
+    x1 = ParseFloat(Input("Masukkan terkaan awal x1: "))
+    X1 = newton_raphson_method(jumlahPerulangan, x1, toleransi_error)
+    y = cos(x) - X[jumlahPerulangan-1, 1]
+    Dy = Differentiate(y, x)
+    x1 = ParseFloat(Input("Masukkan terkaan awal x2: "))
+    X2 = newton_raphson_method(jumlahPerulangan, x1, toleransi_error)
+    y = tan(x) - X[jumlahPerulangan-1, 2]
+    Dy = Differentiate(y, x)
+    x1 = ParseFloat(Input("Masukkan terkaan awal x3: "))
+    X3 = newton_raphson_method(jumlahPerulangan, x1, toleransi_error)
+    Print("X")
+    Print(X)
+    Print("Untuk Newton Raphson Method")
+    Print("X1")
+    Print(X1)
+    Print("X2")
+    Print(X2)
+    Print("X3")
+    Print(X3)
+    y = ln(x) - X[jumlahPerulangan-1, 0]
+    x10 = ParseFloat(Input("x1, Masukkan terkaan awal x0: "))
+    x11 = ParseFloat(Input("x1, Masukkan terkaan awal x1: "))
+    X1 = secant(jumlahPerulangan, x10, x11, toleransi_error)
+    y = cos(x) - X[jumlahPerulangan-1, 1]
+    x20 = ParseFloat(Input("x2, Masukkan terkaan awal x0: "))
+    x21 = ParseFloat(Input("x2, Masukkan terkaan awal x1: "))
+    X2 = secant(jumlahPerulangan, x20, x21, toleransi_error)
+    y = tan(x) - X[jumlahPerulangan-1, 2]
+    x30 = ParseFloat(Input("x3, Masukkan terkaan awal x0: "))
+    x31 = ParseFloat(Input("x3, Masukkan terkaan awal x1: "))
+    X3 = secant(jumlahPerulangan, x30, x31, toleransi_error)
+    Print("Untuk Secant Method")
+    Print("X1")
+    Print(X1)
+    Print("X2")
+    Print(X2)
+    Print("X3")
+    Print(X3)

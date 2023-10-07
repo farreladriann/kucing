@@ -49,10 +49,10 @@ def createPolynomial(m, n, titikX, titikY):
 titikX = []
 titikY = []
 n = int(input())
-for i in range(n):
-    inputXY = input().split()
-    titikX.append(RR(float(inputXY[0])))
-    titikY.append(RR(float(inputXY[1])))
+titikX = input().split()
+titikX = [float(x) for x in titikX]
+titikY = input().split()
+titikY = [float(x) for x in titikY]
 m = int(input())
 
 print(createPolynomial(m, n, titikX, titikY))
