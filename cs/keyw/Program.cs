@@ -12,9 +12,9 @@ namespace MainProgram
             int a = 7;
             int b = 20;
             float sum,  subs;
-            Opperation(a, b, out sum, out subs);
+            Opperation(ref a, b, out sum, out subs);
         }
-        public static void Opperation(int &a, int b,out float sum, out float subs)
+        public static void Opperation(ref int a, int b,out float sum, out float subs)
         {
             sum = a+b;
             subs = a-b;

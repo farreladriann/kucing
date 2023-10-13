@@ -1,6 +1,3 @@
-from sage.all import *
+""" create an api for the ss
+"""
 
-x = var('x')
-
-f = x**2 - 6*x + 8
-print(f.factor())
