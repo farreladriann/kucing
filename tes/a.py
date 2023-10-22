@@ -1,3 +1,2 @@
-x = 1 / 2 + 3 // 3 + 4 ** 2
-
-print(x)
+if __name__ == "__main__":
+    print("a.py is being run directly")
