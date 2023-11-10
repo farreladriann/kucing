@@ -21,19 +21,6 @@ namespace Lecture_1
             PrintWithoutStaticClass();
             InternalTest internalTestObj = new InternalTest();
             internalTestObj.InternalTesting();
-
-            Car myCar = new Car();
-            Console.WriteLine($"default: {myCar.carName}");
-            myCar.carName = "Porsche";
-            Console.WriteLine($"default: {myCar.carName}");
-            Console.WriteLine($"default: {myCar.IrPrice}");
-            Console.WriteLine(PrintScreenStatic.myRandGen.Next());
-            Console.WriteLine(PrintScreenStatic.nuym);
-            PrintScreenStatic.nuym = 220;
-            Console.WriteLine(PrintScreenStatic.nuym);
-            Car car = new();
-            car.IrPrice = 20;
-            
         }
 
         public static class PrintScreenStatic
@@ -93,16 +80,6 @@ namespace Lecture_1
             {
                 PrintToScreenProtected();
             }
-        }
-        class Car
-        {
-            public string carName = "Enzo Ferrari";
-            public int IrPrice 
-            { 
-                get{ return IrPrice; } 
-                set{ IrPrice = value } 
-            }
-
         }
     }
 }

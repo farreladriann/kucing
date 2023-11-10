@@ -1,73 +1,35 @@
 ﻿using System;
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
-using LearnStat;
+using Newtonsoft.Json;
 
-namespace MainProgram
+
+namespace Nuget.Quickstart
 {
-    class MainProgramClass
+    public class Account
+    {
+        public Account()
+        {
+            Name = string.Empty;
+            Email = string.Empty;
+        }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public DateTime DOB { get; set; }
+    }
+    internal class Program
     {
         static void Main(string[] args)
         {
-            int a = 7;
-            int b = 20;
-            float sum,  subs;
-            Opperation(ref a, b, out sum, out subs);
-        }
-        public static void Opperation(ref int a, int b,out float sum, out float subs)
-        {
-            sum = a+b;
-            subs = a-b;
-            a = 10;
-        }
-        public static float Opperation1(int a, int b)
-        {
-            return a+b;
-        }
-        public static float Opperation2(int a, int b)
-        {
-            return a-b;
-        }
-
-        public abstract class Animal
-        {
-            protected abstract void Mengaum();
-            public int Ggg()
+            Account account = new Account
             {
-                return 2;
-            }
-        }
-        public class MyBaseClass
-        {
-            public void MyMethod(int x)
-            {
-                Console.WriteLine($"MyMethod dengan parameter {x}");
-            }
-        }
+                Name = "John Doe",
+                Email = "john@nuget.org",
+                DOB = new DateTime(1980, 2, 20, 0, 0, 0, DateTimeKind.Utc),
+            };
 
-        public class MyBaseClass2
-        {
-            public void MyMethod2(int x)
-            {
-                Console.WriteLine($"MyMethod2 dengan parameter {x}");
-            }
+            string json = JsonConvert.SerializeObject(account, Formatting.Indented);
+            Console.WriteLine(json);
         }
-
-        interface MyInterface
-        {
-            int Value { get; set; }
-            public void InterfaceMethod(int x)
-            {
-                Console.WriteLine($"InterfaceMethod dengan parameter {x}");
-            }
-        }
-
-        public class MyDerivedClass : MyBaseClass, MyInterface
-        {
-            public void tes()
-            {
-            }
-        }
-
     }
 }
