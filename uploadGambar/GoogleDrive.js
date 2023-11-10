@@ -6,7 +6,7 @@ const OAuth2Client = new google.auth.OAuth2(
     GOOGLE_REDIRECT_URI
 )
 
-OAuth2Client.setCredentials({ refresh_token: '1//04p2supXQLTW0CgYIARAAGAQSNwF-L9IrZbBtmxDYAyk3WQE5dyrfpAx546A0j3r7LfLWbXe08GY6zKwlAhrDLvle6YEJ7auqpvM' })
+OAuth2Client.setCredentials({ refresh_token: GOOGLE_REFRESH_TOKEn })
 
 const drive = google.drive({
     version: 'v3',
