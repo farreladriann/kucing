@@ -2,7 +2,9 @@
 using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using Newtonsoft.Json;
-
+using MongoDB.Driver;
+using MongoDB.Bson;
+using MongoDB.Bson.IO;
 
 namespace Nuget.Quickstart
 {
@@ -19,17 +21,27 @@ namespace Nuget.Quickstart
     }
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            Account account = new Account
+            string connectionString = "mongodb+srv://dagr:testing123@cluster0.t3ydebj.mongodb.net/CompanyDB?retryWrites=true&w=majority";
+
+            MongoClient client = new MongoClient(connectionString);
+
+            IMongoDatabase database = client.GetDatabase("CompanyDB");
+
+            var collection = database.GetCollection<BsonDocument>("employees");
+
+            var documents = await collection.Find(new BsonDocument()).ToListAsync();
+
+            var settings = new JsonWriterSettings
             {
-                Name = "John Doe",
-                Email = "john@nuget.org",
-                DOB = new DateTime(1980, 2, 20, 0, 0, 0, DateTimeKind.Utc),
+                Indent = true,
             };
 
-            string json = JsonConvert.SerializeObject(account, Formatting.Indented);
-            Console.WriteLine(json);
+            foreach (var document in documents)
+            {
+                Console.WriteLine(document.ToJson(settings));
+            }
         }
     }
 }
