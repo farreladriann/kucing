@@ -1,12 +1,15 @@
 const { google } = require('googleapis')
+const env = require('dotenv')
 
 const OAuth2Client = new google.auth.OAuth2(
-    GOOGLE_CLIENT_ID,
-    GOOGLE_CLIENT_SECRET,
-    GOOGLE_REDIRECT_URI
+    "835166406485-1mbmb7hlj4f68t9jnpsbgd1sao1v8qa9.apps.googleusercontent.com",
+    "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",
+    "https://developers.google.com/oauthplayground"
 )
 
-OAuth2Client.setCredentials({ refresh_token: GOOGLE_REFRESH_TOKEn })
+// access token : 1//04Wj85KwdznO_CgYIARAAGAQSNwF-L9IrXfaIY8RBf6_a9JLIoMUGIaeVYt0CLP-yuZe0IFE-DvvxoC3zTg8N0Ipjj32ebqcFW9M
+
+OAuth2Client.setCredentials({ refresh_token: "1//04Wj85KwdznO_CgYIARAAGAQSNwF-L9IrXfaIY8RBf6_a9JLIoMUGIaeVYt0CLP-yuZe0IFE-DvvxoC3zTg8N0Ipjj32ebqcFW9M" })
 
 const drive = google.drive({
     version: 'v3',

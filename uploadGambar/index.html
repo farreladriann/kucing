@@ -1,14 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Formulir Unggah File</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Load and Display Image</title>
 </head>
 <body>
-    <h1>Formulir Unggah File</h1>
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-        <label for="file">Pilih File:</label>
-        <input type="file" name="file" id="file">
-        <input type="submit" value="Unggah File">
-    </form>
+
+  <h2>Console Log Image</h2>
+
+  <script>
+    const imageUrl = 'https://global.discourse-cdn.com/getpostman/original/2X/1/19d536cf77234e9c3c21526279c634feedb067eb.png'; // Ganti dengan URL gambar Anda
+
+    // Menggunakan Fetch API untuk mendapatkan gambar
+    fetch(imageUrl)
+      .then(response => response.blob())
+      .then(blob => {
+        // Membuat objek URL dari blob
+        const objectUrl = URL.createObjectURL(blob);
+        console.log(objectUrl);
+
+        // Membuat elemen gambar
+        const imageElement = new Image();
+        imageElement.src = objectUrl;
+
+        // Menampilkan elemen gambar di konsol
+        console.log(imageElement);
+
+        // Jangan lupa untuk melepaskan objek URL setelah penggunaan
+        URL.revokeObjectURL(objectUrl);
+      })
+      .catch(error => {
+        console.error('Error fetching image:', error);
+      });
+  </script>
+
 </body>
 </html>

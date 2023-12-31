@@ -7,6 +7,9 @@ const gd_folder_id = "1FpD-C0Al7OIP1Cf1HwHt4aGoOx_WewwY";
 const { drive } = require("./GoogleDrive");
 const path = require("path");
 const { appsactivity } = require("googleapis/build/src/apis/appsactivity");
+const env = require("dotenv");
+
+env.config();
 
 const SaveOneFileToDrive = async (
     bufferStream,
