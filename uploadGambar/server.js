@@ -2,7 +2,7 @@ const multer = require("multer");
 const express = require("express");
 const stream = require("stream");
 const app = express();
-const port = 3000;
+const port = 3800;
 const gd_folder_id = "1FpD-C0Al7OIP1Cf1HwHt4aGoOx_WewwY";
 const { drive } = require("./GoogleDrive");
 const path = require("path");
@@ -18,7 +18,7 @@ const SaveOneFileToDrive = async (
     folderId
 ) => {
     const fileExtension = path.extname(fileObject.originalname);
-
+ 
     const fileMetadata = {
         name: fileNameInDrive + fileExtension,
         parents: [folderId],
@@ -132,6 +132,7 @@ app.post(
             // Lanjutkan dengan kode Anda...
             const folderId = await createFolder("Folder Baru");
             const bufferStream = new stream.PassThrough();
+            console.log(bufferStream);
             bufferStream.end(fileObject.buffer);
             const bufferStream2 = new stream.PassThrough();
             bufferStream2.end(fileObject2.buffer);
