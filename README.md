@@ -1,1 +1,1 @@
-Isinya gajelas, soalnya cuma buat arsip kodingan gua
+Isinya gajelas, cuma buat arsip kodingan gua
